@@ -1,0 +1,19 @@
+venv/
+__pycache__/
+.python-version
+.vscode/
+.env
+postgres-data/
+__pycache__
+**/**/__pycache__
+**/__pycache__
+env_2.text
+backend/database/files_root/*
+backend/database/files_root/**
+import_tax_data2.py
+my-db/
+local_db/
+frontend/
+Return 1_Clean_Test.pdf
+
+
