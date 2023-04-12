@@ -38,7 +38,6 @@ def login_user(login_user_data: OAuth2PasswordRequestForm = Depends()):
         ))
         if login_user:
             login_user_token = login_user.get('token')
-            print(login_user_token)
             login_user_data = login_user.get('user')
             if login_user_data:
                 login_user_response = UserCleanData(

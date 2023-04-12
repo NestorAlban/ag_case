@@ -1,0 +1,44 @@
+version: "3"
+services:
+  agdb:
+    image: "postgres:13"
+    container_name: "agdb"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=ag-database
+      # - DATABASE_HOST=agdb
+    networks:
+      - ag_net
+      
+    ports:
+      - "5432:5432" 
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+  ag_app:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: "ag_app"
+    ports:
+      - "8080:8000"
+
+    # environment:
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=12345
+    #   - POSTGRES_DB=ag-database
+    #   - DATABASE_HOST=ag_app
+    depends_on:
+      - agdb
+
+    links:
+      - agdb:agdb
+
+    networks:
+      - ag_net
+networks:
+  ag_net:
+    driver: bridge
+
+
+  

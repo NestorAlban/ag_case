@@ -12,7 +12,6 @@ class UserCreatorBySignInUseCase:
 
     def run(self, params: UserRegistrationData) -> dict:
         user_service = UserService()
-        print('==============================bbbbbbbbbb==============================')
         user_response = user_service.create_user_by_sing_in(
             params.name,
             params.last_name,

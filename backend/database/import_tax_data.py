@@ -14,27 +14,24 @@ class FileData:
 
     def page1_iter(spages, clean_doc):
         for spage in spages:
-            r = spage.rect  # input page rectangle
-            d = fitz.Rect(spage.cropbox_position,  # CropBox displacement if not
-                spage.cropbox_position)  # starting at (0, 0)
-            #--------------------------------------------------------------------------
-            # example: cut input page into 2 x 2 parts
-            #--------------------------------------------------------------------------
-            r1 = r - (0, 0, 0, (r.height)*7/8) # top left rect
-            r2 = r1 + ((r1.width)*3/20, (r1.height)*3/4, 0, 0) - (0, 0, (r1.width)*3/40, (r1.height)*1/8)  # top right rect
-            r3 = r + ((r.width)*8/10, (r.height)*3/8, 0, 0) - (0, 0, 0, (r.height)*1/4) # bottom left rect
+            r = spage.rect 
+            d = fitz.Rect(spage.cropbox_position, 
+                spage.cropbox_position)  
+            r1 = r - (0, 0, 0, (r.height)*7/8)
+            r2 = r1 + ((r1.width)*3/20, (r1.height)*3/4, 0, 0) - (0, 0, (r1.width)*3/40, (r1.height)*1/8) 
+            r3 = r + ((r.width)*8/10, (r.height)*3/8, 0, 0) - (0, 0, 0, (r.height)*1/4)
             r4 = r3 + ((r3.width)*1/8, (r3.height)*1/4, 0, 0) - (0, 0, (r3.width)*1/8, (r3.height)*5/8)
-            rect_list = [r2, r4]  # put them in a list
-            for rx in rect_list:  # run thru rect list
-                rx += d  # add the CropBox displacement
-                page = clean_doc.new_page(-1,  # new output page with rx dimensions
+            rect_list = [r2, r4]  
+            for rx in rect_list:  
+                rx += d  
+                page = clean_doc.new_page(-1, 
                                 width = rx.width,
                                 height = rx.height)
                 page.show_pdf_page(
-                        page.rect,  # fill all new page with the image
-                        spages,  # input document
-                        spage.number,  # input page number
-                        clip = rx,  # which part to use of input page
+                        page.rect, 
+                        spages, 
+                        spage.number, 
+                        clip = rx, 
                     )
         return clean_doc
     def page3_iter(spages, clean_doc):
@@ -176,26 +173,25 @@ class FileData:
             text2 = int(response_doc2[0].get_text().rstrip().replace(',','').replace('.',''))
 
             text3 = int(response_doc1[1].get_text().rstrip().replace(',','').replace('.',''))
-            print(text1,text2,text3)
             return {'text1':text1, 'text2':text2, 'text3':text3}
         
         values = get_user_taxes_data_by_pdf(response_doc1,response_doc2)
-        doc1.close()
-        doc2.close()
-        page1_doc.close()
-        page3_doc.close()
-        response_doc1.close()
-        response_doc2.close()
-        for i in range(len(files_names)):
+        # doc1.close()
+        # doc2.close()
+        # page1_doc.close()
+        # page3_doc.close()
+        # response_doc1.close()
+        # response_doc2.close()
+        # for i in range(len(files_names)):
 
-            file_path = GENERAL_ROOT+ files_names[i]
-            if os.path.isfile(file_path):
-                try:
-                    # Eliminar el archivo
-                    os.remove(file_path)
-                    print(f"El archivo {file_path} ha sido eliminado exitosamente.")
-                except Exception as e:
-                    print(f"No se pudo eliminar el archivo {file_path}. Error: {str(e)}")
-            else:
-                print(f"El archivo {file_path} no existe.")
+        #     file_path = GENERAL_ROOT+ files_names[i]
+        #     if os.path.isfile(file_path):
+        #         try:
+        #             # Eliminar el archivo
+        #             os.remove(file_path)
+        #             print(f"El archivo {file_path} ha sido eliminado exitosamente.")
+        #         except Exception as e:
+        #             print(f"No se pudo eliminar el archivo {file_path}. Error: {str(e)}")
+        #     else:
+        #         print(f"El archivo {file_path} no existe.")
         return values

@@ -18,11 +18,7 @@ load_dotenv()
 
 def create_app():
     app = FastAPI()
-    ##Users
-
-    # Crear estructura básica de modelos en base datos
     db = DataBase()
-
     TABLE_BASE.metadata.create_all(db.engine)
 
     app.include_router(create_user_endpoint.router)

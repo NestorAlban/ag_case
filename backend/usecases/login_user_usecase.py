@@ -19,5 +19,4 @@ class LoginUser:
             login_user_response = UserCleanData(
                 **d.__dict__
             )
-            print(login_user_response)
         return user

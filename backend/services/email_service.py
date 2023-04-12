@@ -11,7 +11,6 @@ class EmailService:
         token: str
     ):
         request_response = None
-        print('==============================ccccccccccc==============================')
         request_response = self.database.verify_token_by_email(
             token = token,
         )

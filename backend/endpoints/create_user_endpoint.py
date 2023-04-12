@@ -24,7 +24,10 @@ HTTP_400_KEY: Final = 400
     summary=CREATE_USER_ENDPOINT_SUMMARY,
     tags=["Users"],
 )
-async def create_user_by_sign_in_endpoint(response: Response, new_user_data: UserRegistrationData):
+async def create_user_by_sign_in_endpoint(
+    response: Response, 
+    new_user_data: UserRegistrationData
+):
     success = False
     user_response = None
     try:
@@ -33,7 +36,7 @@ async def create_user_by_sign_in_endpoint(response: Response, new_user_data: Use
         last_name = new_user_data.last_name.strip()
         mail = new_user_data.mail.strip()
         password = new_user_data.password.strip()
-        print('==============================aaaaaaaaa==============================')
+        
         if len(name) != 0 and len(mail) != 0 and len(password) != 0 and len(last_name) != 0:
             user = await user_creator.run(UserRegistrationData(
                 name = name, 

@@ -14,6 +14,3 @@ class Hash_Password():
             hass_pass
         )
     
-test_pas = 'fake_password'
-
-print(pwd_cxt.hash(test_pas))

@@ -20,10 +20,9 @@ class Token():
     def verify_token(token: str):
         try:
             payload = jwt.decode(str(token), SECRET_KEY, algorithms=ALGORITHM)
-            print(payload)
+
             name = payload.get("username")
             mail = payload.get("email")
-            print(name)
             if name is None:
                 raise print('credentials exception')
             token_data = TokenData(name=name)

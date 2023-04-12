@@ -15,5 +15,6 @@ my-db/
 local_db/
 frontend/
 Return 1_Clean_Test.pdf
+AG_CASE.*
 
 

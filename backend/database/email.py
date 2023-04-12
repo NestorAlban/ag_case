@@ -32,15 +32,10 @@ logger.level = logger.setLevel(logging.INFO)
 from backend.models import User
 from backend.schemas import EmailSchema
 
-
-def create_with_smnt():
-    pass
 def create_conf():
     try:
         mail_username = os.getenv("EMAIL_FROM")
         mail_pass = os.getenv("EMAIL_PASSWORD")
-        print(mail_username)
-        print('==============================')
         conf = ConnectionConfig(
             MAIL_USERNAME = mail_username,
             MAIL_PASSWORD = mail_pass,
@@ -54,28 +49,16 @@ def create_conf():
             USE_CREDENTIALS = True,
             VALIDATE_CERTS = True
         )
-        print(mail_username)
         
     except Exception as database_exception:
         raise database_exception
     return conf
 
-# conf = ConnectionConfig(
-#     MAIL_USERNAME = mail_username,
-#     MAIL_PASSWORD = mail_pass,
-#     MAIL_FROM = mail_username,
-#     MAIL_PORT = 465,
-#     MAIL_SERVER = "smtp.gmail.com", #smtp.office365.com
-#     MAIL_STARTTLS= True,
-#     MAIL_SSL_TLS = True
-# )
 
 class EmailSend:
     
     async def send_email(email : EmailSchema, instance: User):
         email_to_use = email[0]
-        print(email_to_use)
-        print('==============================')
         token_data = {
             "id" : instance.user_id,
             "username" : instance.name,
@@ -117,7 +100,6 @@ class EmailSend:
         fm = FastMail(conf)
         await asyncio.sleep(1)
         await fm.send_message(message)
-        print(message)
         await asyncio.sleep(1)
 
     async def send_email_smt(email : EmailSchema, instance: User):
@@ -125,12 +107,10 @@ class EmailSend:
         HOST = "smtp.gmail.com"
         PORT = 587
         s = smtplib.SMTP(HOST, PORT)
-        # s = smtplib.SMTP(HOST, 465)
-        # s.connect(HOST, PORT)
         s.starttls()
 
-        mail_username = 'albquenes7294@gmail.com'
-        mail_pass = 'qklanjrltxcsusbc'
+        mail_username = os.getenv("EMAIL_FROM")
+        mail_pass = os.getenv("EMAIL_PASSWORD")
         s.login(mail_username, mail_pass)
         message = MIMEMultipart()
         email_to_use = email[0]
@@ -172,15 +152,6 @@ class EmailSend:
 
         message.attach(MIMEText(template_2, 'plain'))
         message.attach(MIMEText(template, 'html'))
-        # archivo_adjunto = open("archivo.txt", "rb")
-
-        # part = MIMEBase('application', 'octet-stream')
-        # part.set_payload((archivo_adjunto).read())
-        # encoders.encode_base64(part) 
-
-        # part.add_header('Content-Disposition', "attachment; filename= archivo.txt")
-
-        # message.attach(part)
 
         texto = message.as_string()
         await asyncio.sleep(1)

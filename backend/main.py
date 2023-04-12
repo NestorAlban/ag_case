@@ -10,5 +10,5 @@ app = create_app()
 
 if __name__ == "__main__":
     if app:
-        uvicorn.run("main:app", host="localhost", port=8000, reload=True)
+        uvicorn.run("main:app", host="agdb", port=8000, reload=True)
 

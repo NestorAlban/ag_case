@@ -67,8 +67,7 @@ class DataBase:
             ).first()
             if user and user.active_status == True:
                 user_domain= Domain.create_user_domain(user)
-                print(user_domain.password)
-                print(password)
+
                 
                 if Hash_Password.verify_pass(
                     user_domain.password,
@@ -104,8 +103,6 @@ class DataBase:
         data = 'None'
         
         try:
-            
-            print(name, last_name, mail, password)
             user_verification = self.session.query(
                 User
             ).filter(
@@ -142,13 +139,11 @@ class DataBase:
         user = None
         success = False
         try:
-            print('get user by email')
             user = self.session.query(
                 User
             ).filter(
                 User.mail == mail
             ).first()
-            print(user)
             success = True
             self.session.close()
         except Exception as database_exception:
@@ -167,8 +162,6 @@ class DataBase:
         token_type = None
         success = False
         token_data = Token.verify_token(token)
-        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-        print(token_data)
         try:
 
             user = self.session.query(
@@ -200,7 +193,7 @@ class DataBase:
         data = None
         try:
             taxes_va = FileData.start_file_reader(file_path= file, filename=filename)
-            print(taxes_va)
+            
             taxes_data_verify = self.session.query(
                 UserData
             ).filter(
@@ -208,7 +201,8 @@ class DataBase:
             ).first()
             if taxes_data_verify:
                 data = "The data was created before this request."
-                taxes_response = taxes_data_verify
+                taxes_response = Domain.create_user_data_domain(taxes_data_verify)
+                
             elif not taxes_data_verify:
                 taxes = UserData(
                     identifier = user_id,
@@ -220,7 +214,7 @@ class DataBase:
                     self.session.add(taxes)
                     self.session.commit()
                     success = True
-                    taxes_response = taxes
+                    taxes_response = Domain.create_user_data_domain(taxes)
                     data = 'The data was created, please verify it.'
 
             success = True

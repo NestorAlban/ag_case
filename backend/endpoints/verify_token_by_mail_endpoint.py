@@ -30,7 +30,6 @@ def verification_by_email_endpoint(request: Request, token: str):
         request_response = email_verify.run(
             token = token
         )
-        print(request_response)
         if request_response:
             success = request_response
     except Exception as error:
