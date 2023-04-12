@@ -7,10 +7,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=ag-database
-      # - DATABASE_HOST=agdb
-    networks:
-      - ag_net
-      
     ports:
       - "5432:5432" 
     volumes:
@@ -22,23 +18,8 @@ services:
     container_name: "ag_app"
     ports:
       - "8080:8000"
-
-    # environment:
-    #   - POSTGRES_USER=postgres
-    #   - POSTGRES_PASSWORD=12345
-    #   - POSTGRES_DB=ag-database
-    #   - DATABASE_HOST=ag_app
     depends_on:
       - agdb
-
-    links:
-      - agdb:agdb
-
-    networks:
-      - ag_net
-networks:
-  ag_net:
-    driver: bridge
 
 
   
