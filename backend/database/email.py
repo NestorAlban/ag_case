@@ -139,7 +139,7 @@ class EmailSend:
                     <p>Thanks for choosing AG page, please 
                     click on the link below to verify your account</p> 
                     <a style="margin-top:1rem; padding: 1rem; border-radius: 0.5rem; font-size: 1rem; text-decoration: none; background: #0275d8; color: white;"
-                    href="http://localhost:8000/verification/?token={token}">
+                    href="http://142.93.115.61:8080//verification/?token={token}">
                         Verify your email
                     <a>
                     <p style="margin-top:1rem;">If you did not register for AG page, 
